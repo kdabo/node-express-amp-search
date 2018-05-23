@@ -1,0 +1,86 @@
+<!doctype html>
+<html amp lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <title>AMP</title>
+    <link rel="canonical" href="http://localhost:3000/" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+
+    <style amp-custom>
+      form.amp-form-submit-success [submit-success],
+      form.amp-form-submit-error [submit-error]{
+        margin-top: 16px;
+      }
+      form.amp-form-submit-success [submit-success] {
+        color: green;
+      }
+      form.amp-form-submit-error [submit-error] {
+        color: red;
+      }
+      form.amp-form-submit-success.hide-inputs > input {
+        display: none;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="header">
+      <h1>AMP</h1>
+    </div>
+
+    <section>
+      <div>
+        <amp-img src="../../assets/architectural-design-architecture-building-443383.jpg" width="300" height="200" layout="responsive"/>
+      </div>
+      <div className="">
+        <header>
+          <h1 className="">Amsterdam Business Database A - Z</h1>
+          <h2 className="">Find and call any business in Amsterdam.</h2>
+        </header>
+        <div className="">
+
+
+
+
+          <form method="post"
+                class="p2"
+                action-xhr="/test"
+                target="_top">
+            <p>Form Submission with Page Update</p>
+            <div class="ampstart-input inline-block relative m0 p0 mb3">
+              <input type="text"
+                     class="block border-none p0 m0"
+                     name="what"
+                     placeholder="Name..."
+                     >
+
+            </div>
+            <input type="submit"
+                   value="Subscribe"
+                   class="ampstart-btn caps">
+            <div submit-success>
+              <template type="amp-mustache">
+                Success! Thanks {{name}} for trying the
+                <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how
+                <code>amp-form</code> handles errors.
+              </template>
+            </div>
+            <div submit-error>
+              <template type="amp-mustache">
+                Error! Thanks {{name}} for trying the
+                <code>amp-form</code> demo with an error response.
+              </template>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+  
+  </body>
+</html>
