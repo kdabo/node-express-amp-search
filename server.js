@@ -19,6 +19,10 @@ app.use(public_path);
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("AMP-Access-Control-Allow-Source-Origin", "http://localhost:3000");
+    res.header("Content-Type: application/json");
+    res.header("Access-Control-Expose-Headers: AMP-Access-Control-Allow-Source-Origin");
+    res.header("AMP-Same-Origin: true");
+    res.header("Cache-Control: private, no-cache");
     next();
 });
 

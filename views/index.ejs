@@ -10,21 +10,32 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+    
     <style amp-custom>
+
+
       form.amp-form-submit-success [submit-success],
       form.amp-form-submit-error [submit-error]{
         margin-top: 16px;
       }
       form.amp-form-submit-success [submit-success] {
-        color: green;
+        color: green !important;
+        background: yellow;
+        height: 100vh;
+        width: 100vh;
+        font-size: 28px;
       }
+
       form.amp-form-submit-error [submit-error] {
         color: red;
       }
-      form.amp-form-submit-success.hide-inputs > input {
-        display: none;
+
+      template {
+        display: block !important;
       }
+
     </style>
 
   </head>
@@ -37,50 +48,38 @@
       <div>
         <amp-img src="../../assets/architectural-design-architecture-building-443383.jpg" width="300" height="200" layout="responsive"/>
       </div>
-      <div className="">
+      <div>
         <header>
-          <h1 className="">Amsterdam Business Database A - Z</h1>
-          <h2 className="">Find and call any business in Amsterdam.</h2>
+          <h1>Amsterdam Business Database A - Z</h1>
+          <h2>Find and call any business in Amsterdam.</h2>
         </header>
-        <div className="">
 
-
-
-
-          <form method="post"
-                class="p2"
-                action-xhr="/test"
+         <form id="myform"
+                method="post"
+                action-xhr="/ypSearchResult"
                 target="_top">
-            <p>Form Submission with Page Update</p>
-            <div class="ampstart-input inline-block relative m0 p0 mb3">
+            <div>
               <input type="text"
-                     class="block border-none p0 m0"
                      name="what"
-                     placeholder="Name..."
-                     >
-
+                     id="what"
+                     placeholder="company...">
             </div>
-            <input type="submit"
-                   value="Subscribe"
-                   class="ampstart-btn caps">
+            <div>
+              <input type="submit"
+                     value="Search">
+            </div>
             <div submit-success>
-              <template type="amp-mustache">
-                Success! Thanks {{name}} for trying the
-                <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how
-                <code>amp-form</code> handles errors.
+              <template type="amp-mustache" id="submit_success_template">
+                <p>Success! Thanks for subscribing! {{{resultHeader}}} </p>
               </template>
             </div>
             <div submit-error>
               <template type="amp-mustache">
-                Error! Thanks {{name}} for trying the
-                <code>amp-form</code> demo with an error response.
+                Oops!
               </template>
             </div>
           </form>
-
-        </div>
       </div>
     </section>
-  
   </body>
 </html>
