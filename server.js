@@ -9,8 +9,10 @@ const pageSize = 5;
 const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
+var multer = require('multer');
+var multipart = multer();
 
 const public_path = express.static(__dirname + '/public');
 
@@ -26,25 +28,21 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.post('/test',function (req, res) {
 
-    res.send({"name":"kate", "email":"jjj@dfsf.com"})
-})
-
-app.post('/ypSearchResult', function (req, res) {
+app.post('/ypSearchResult', multipart.fields([]), function (req, res) {
     var whatTerm = req.body.what || "kapper";
     request
         .post('https://www.detelefoongids.nl/v1/rest/api/ypSearchResult')
         .send({
-            "what" : whatTerm,
-            "whereTerm": {"where": "Amsterdam" }
+            "what": whatTerm,
+            "whereTerm": {"where": "Amsterdam"}
             ,
             "sortBy": "relevance",
             "limit": 100,
             "startIndex": 0,
-            "page":1,
-            "skip":0,
-            "originPath":"hovenier/colmschate/3-1/"
+            "page": 1,
+            "skip": 0,
+            "originPath": "hovenier/colmschate/3-1/"
         })
         .end(function (err, response) {
             res.json(response.body);
@@ -52,27 +50,27 @@ app.post('/ypSearchResult', function (req, res) {
 });
 
 app.get('/', (req, res) => {
-  let currentPage = 1;
-  const totalPosts = posts.length;
-  const pageCount = Math.ceil(totalPosts / pageSize);
+    let currentPage = 1;
+    const totalPosts = posts.length;
+    const pageCount = Math.ceil(totalPosts / pageSize);
   
-  if(req.query.page) {
-    currentPage = parseInt(req.query.page, 10);
-  }
-  
-  const start = (currentPage - 1) * pageSize;
-  const end = currentPage * pageSize;
-	
-  res.render('index',
-    {
-	  posts: posts.slice(start, end),
-	  pageSize: pageSize,
-	  pageCount: pageCount,
-	  currentPage: currentPage,
+    if (req.query.page) {
+        currentPage = parseInt(req.query.page, 10);
     }
-  );
+
+    const start = (currentPage - 1) * pageSize;
+    const end = currentPage * pageSize;
+
+    res.render('index',
+        {
+            posts: posts.slice(start, end),
+            pageSize: pageSize,
+            pageCount: pageCount,
+            currentPage: currentPage,
+        }
+    );
 });
 
 app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+    console.log('Server listening on port 3000');
 });
