@@ -1,7 +1,8 @@
 {
-  "name": "node-express-jade-amp",
+  "name": "node-express-amp-search",
   "version": "1.0.0",
-  "description": "",
+  "autohor": "kdabo",
+  "description": "Demo application for the AMP search component",
   "scripts": {
     "start": "node_modules/.bin/nodemon server.js"
   },

@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const request = require('superagent');
 const multer = require('multer');
 
-const posts = [];
-const pageSize = 5;
 const app = express();
 const multipart = multer();
 
@@ -35,7 +33,7 @@ app.post('/ypSearchResult', multipart.fields([]), (req, res) => {
             "whereTerm": {"where": "Amsterdam"}
             ,
             "sortBy": "relevance",
-            "limit": 50,
+            "limit": 100,
             "startIndex": 0,
             "page": 1,
             "skip": 0,
@@ -47,25 +45,7 @@ app.post('/ypSearchResult', multipart.fields([]), (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    let currentPage = 1;
-    const totalPosts = posts.length;
-    const pageCount = Math.ceil(totalPosts / pageSize);
-
-    if (req.query.page) {
-        currentPage = parseInt(req.query.page, 10);
-    }
-
-    const start = (currentPage - 1) * pageSize;
-    const end = currentPage * pageSize;
-
-    res.render('index',
-        {
-            posts: posts.slice(start, end),
-            pageSize: pageSize,
-            pageCount: pageCount,
-            currentPage: currentPage,
-        }
-    );
+    res.render(__dirname + '/views/index.ejs');
 });
 
 app.listen(3000, () => {
